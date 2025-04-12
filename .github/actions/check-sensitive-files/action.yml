@@ -7,7 +7,7 @@ inputs:
     default: "allow-sensitive-change"
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - run: |
         pip install requests
@@ -17,4 +17,5 @@ runs:
         BYPASS_LABEL: ${{ inputs.bypass_label }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
-        PR_NUMBER: ${{ steps.github.event.pull_request.number }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+
