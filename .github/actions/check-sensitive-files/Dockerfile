@@ -4,8 +4,11 @@ FROM python:3.9-slim
 # Set the working directory inside the container
 WORKDIR /action
 
-# Copy necessary files into the Docker image
-COPY check.py lockedFiles.txt ./
+# Copy the necessary files into the Docker image from the repository root
+COPY ../lockedFiles.txt ./
+
+# Copy check.py (since it is inside the action directory)
+COPY check.py ./
 
 # Debugging: List files inside the directory after copying
 RUN echo "Listing files in /action:" && ls -la /action
