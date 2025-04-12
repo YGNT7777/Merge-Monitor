@@ -3,8 +3,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set the working directory inside the container
+# Set the working directory inside the container, ensure it's created if it doesn't exist
 WORKDIR /action
+
+# Ensure the /action directory exists before copying
+RUN mkdir -p /action
 
 # Copy the necessary files into the Docker image
 COPY check.py ./  # Copy check.py into the working directory inside the container
