@@ -2,24 +2,19 @@ name: Merge Monitor
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
-
-permissions:
-  contents: write
-  pull-requests: write
+    types: [opened, synchronize, reopened]
 
 jobs:
-  check_sensitive:
+  check-sensitivity:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Run Merge Monitor
-        uses: ./.github/actions/check-sensitive-files
+      - name: Run custom check-sensitive-files action
+        uses: ./path-to-your-action
         with:
-          bypass_label: "allow-sensitive-change"
+          bypass_label: 'skip-sensitive-check'  
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
