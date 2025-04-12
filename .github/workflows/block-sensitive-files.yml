@@ -1,0 +1,17 @@
+name: Merge Monitor
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  check_sensitive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Merge Monitor
+        uses: ./.github/actions/check-sensitive-files
+        with:
+          bypass_label: "allow-sensitive-change"

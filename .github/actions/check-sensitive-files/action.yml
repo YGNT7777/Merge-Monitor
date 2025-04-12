@@ -1,0 +1,20 @@
+# .github/actions/check-sensitive-files/action.yml
+name: "Merge Monitor"
+description: "Blocks PRs that modify sensitive files unless labeled"
+inputs:
+  bypass_label:
+    description: "Label that allows bypassing the file check"
+    required: false
+    default: "allow-sensitive-change"
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        pip install requests
+        python3 ${{ github.action_path }}/check.py
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        BYPASS_LABEL: ${{ inputs.bypass_label }}
