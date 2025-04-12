@@ -1,24 +1,30 @@
-name: "Monitor Merge PRs"
+# .github/workflows/pr-check.yml
+name: 'PR Check: Sensitive Files'
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  monitor:
+  check-sensitive-files:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout the code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run the merge monitor action
-        uses: ../.github/actions/merge-monitor  # Reference to your custom action in the same repository
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-          bypass_label: "allow-sensitive-change"  # Optional, can be overridden in the PR
+          python-version: '3.x'
 
-      - name: Output PR info
+      - name: Install dependencies
         run: |
-          echo "Pull Request #${{ github.event.pull_request.number }} details:"
-          echo "Repository: ${{ github.repository }}"
-          echo "PR Title: ${{ github.event.pull_request.title }}"
-          echo "PR Author: ${{ github.event.pull_request.user.login }}"
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Check Sensitive Files Action
+        uses: ./.github/actions/check-sensitive-files
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BYPASS_LABEL: ${{ secrets.BYPASS_LABEL }}

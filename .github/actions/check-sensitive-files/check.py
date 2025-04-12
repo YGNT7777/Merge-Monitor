@@ -8,12 +8,6 @@ repo = os.environ['GITHUB_REPOSITORY']
 pr_number = os.environ['PR_NUMBER']
 bypass_label = os.environ.get('BYPASS_LABEL', 'allow-sensitive-change')
 
-# Now you can use these variables, e.g., interact with the GitHub API
-print(f"Bypass label: {bypass_label}")
-print(f"GitHub Token: {github_token}")
-print(f"GitHub Repository: {github_repository}")
-print(f"Pull Request Number: {pr_number}")
-
 locked_file_path = "lockedFiles.txt"
 
 if not os.path.exists(locked_file_path):
