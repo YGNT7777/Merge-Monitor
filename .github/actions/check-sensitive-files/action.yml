@@ -17,4 +17,4 @@ runs:
   image: 'Dockerfile'
   # Set the context to the root of the repository
   args:
-    - context: .
+    - context: '.'
