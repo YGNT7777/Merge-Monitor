@@ -13,5 +13,5 @@ inputs:
     required: false
     default: 'allow-sensitive-change'
 runs:
-  using: 'python'
-  main: 'check.py'
+  using: 'docker'
+  image: 'Dockerfile'
