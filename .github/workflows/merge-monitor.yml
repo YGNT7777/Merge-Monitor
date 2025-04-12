@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run the merge monitor action
-        uses: ./.github/actions/merge-monitor  # Reference to your custom action in the same repository
+        uses: ../.github/actions/merge-monitor  # Reference to your custom action in the same repository
         with:
           bypass_label: "allow-sensitive-change"  # Optional, can be overridden in the PR
 
