@@ -1,0 +1,24 @@
+name: "Monitor Merge PRs"
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Run the merge monitor action
+        uses: ./.github/actions/merge-monitor  # Reference to your custom action in the same repository
+        with:
+          bypass_label: "allow-sensitive-change"  # Optional, can be overridden in the PR
+
+      - name: Output PR info
+        run: |
+          echo "Pull Request #${{ github.event.pull_request.number }} details:"
+          echo "Repository: ${{ github.repository }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR Author: ${{ github.event.pull_request.user.login }}"
