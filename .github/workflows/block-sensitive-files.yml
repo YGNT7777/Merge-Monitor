@@ -15,3 +15,7 @@ jobs:
         uses: ./.github/actions/check-sensitive-files
         with:
           bypass_label: "allow-sensitive-change"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
