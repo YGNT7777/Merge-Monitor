@@ -1,4 +1,3 @@
-# .github/actions/check-sensitive-files/action.yml
 name: "Merge Monitor"
 description: "Blocks PRs that modify sensitive files unless labeled"
 inputs:
