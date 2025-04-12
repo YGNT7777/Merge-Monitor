@@ -15,7 +15,6 @@ runs:
       shell: bash
       env:
         BYPASS_LABEL: ${{ inputs.bypass_label }}
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # Correct usage for accessing the token
         GITHUB_REPOSITORY: ${{ github.repository }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
-
