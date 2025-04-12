@@ -1,21 +1,20 @@
-name: Merge Monitor
+name: "Merge Monitor"
+description: "Blocks PRs that modify sensitive files unless labeled"
+inputs:
+  bypass_label:
+    description: "Label that allows bypassing the file check"
+    required: false
+    default: "allow-sensitive-change"
 
-on:
-  pull_request:
-    types: [open, synchronize, reopened, labeled]
-
-jobs:
-  check_sensitive:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run Merge Monitor
-        uses: ./.github/actions/check-sensitive-files
-        with:
-          bypass_label: "allow-sensitive-change"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }} 
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        pip install requests
+        python3 ${{ github.action_path }}/check.py
+      shell: bash
+      env:
+        BYPASS_LABEL: ${{ inputs.bypass_label }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
