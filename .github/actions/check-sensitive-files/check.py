@@ -51,7 +51,10 @@ headers = {
 
 label_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/labels"
 labels_resp = requests.get(label_url, headers=headers)
+print("Label API response:", labels_resp.status_code, labels_resp.text)
 labels = [label['name'] for label in labels_resp.json()]
+print("Labels found on PR:", labels)
+print("Looking for bypass label:", bypass_label)
 if bypass_label in labels:
     post_comment(pr_number, "BYPASS_LABEL was used", token)
     sys.exit(3)
