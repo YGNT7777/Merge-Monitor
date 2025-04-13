@@ -4,6 +4,11 @@ import sys
 import requests
 
 token = os.environ['GITHUB_TOKEN']
+
+if not token:
+    raise RuntimeError("GITHUB_TOKEN environment variable is not set")
+
+
 repo = os.environ['GITHUB_REPOSITORY']
 pr_number = os.environ['PR_NUMBER']
 bypass_label = os.environ.get('BYPASS_LABEL', 'allow-sensitive-change')
