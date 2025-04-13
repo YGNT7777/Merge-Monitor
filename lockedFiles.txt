@@ -1,4 +1,7 @@
-test.txt
 _config.yml
 .gitmodules
 .gitignore
+.ruby-version
+README.md
+Gemfile
+
