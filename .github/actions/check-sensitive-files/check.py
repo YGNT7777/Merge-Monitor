@@ -64,8 +64,10 @@ changed_files = [file['filename'] for file in files_resp.json()]
 
 sensitive_changes = [f for f in changed_files if f in sensitive_files]
 
+gif_url = "https://media1.tenor.com/m/xqBYue2tGlwAAAAC/goku-prowler.gif"
+
 if sensitive_changes:
-    msg = "\n".join([f"❌ Sensitive file changed: `{f}`" for f in sensitive_changes])
+    msg = "\n".join([f"❌ Sensitive file changed: `{f}`" for f in sensitive_changes]) + f"\n\n![Goku Stare]({gif_url})"
     post_comment(pr_number, msg, token)
     close_pull_request(pr_number, token)
     exit(1)
