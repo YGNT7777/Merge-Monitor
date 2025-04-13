@@ -3,6 +3,29 @@ import os
 import sys
 import requests
 
+
+def post_comment(pr_number, message, token):
+    url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/{pr_number}/comments"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json"
+    }
+    payload = {"body": message}
+    response = requests.post(url, headers=headers, json=payload)
+    if response.status_code >= 400:
+        print(f"Failed to post comment: {response.status_code}, {response.text}")
+
+def close_pull_request(pr_number, token):
+    url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pr_number}"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json"
+    }
+    payload = {"state": "closed"}
+    response = requests.patch(url, headers=headers, json=payload)
+    if response.status_code >= 400:
+        print(f"Failed to close PR: {response.status_code}, {response.text}")
+
 token = os.environ['GITHUB_TOKEN']
 if not token:
     raise RuntimeError("GITHUB_TOKEN environment variable is not set")
@@ -36,6 +59,17 @@ files_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
 files_resp = requests.get(files_url, headers=headers)
 changed_files = [file['filename'] for file in files_resp.json()]
 
+sensitive_changes = [f for f in changed_files if f in sensitive_files]
+
+if sensitive_changes:
+    msg = "\n".join([f"❌ Sensitive file changed: `{f}`" for f in sensitive_changes])
+    post_comment(pr_number, msg, token)
+    close_pull_request(pr_number, token)
+    exit(1)
+else:
+    post_comment(pr_number, "✅ No sensitive files changed.", token)
+
+'''
 for f in changed_files:
     if f in sensitive_files:
         print(f"❌ Sensitive file changed: {f}")
@@ -43,3 +77,4 @@ for f in changed_files:
 
 print("✅ No sensitive files changed.")
 sys.exit(0)
+'''
