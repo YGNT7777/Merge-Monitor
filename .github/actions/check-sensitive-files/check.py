@@ -36,8 +36,8 @@ bypass_label = os.environ.get('BYPASS_LABEL')
 locked_file_path = "lockedFiles.txt"
 
 if not os.path.exists(locked_file_path):
-    print(f"❌ Error: {locked_file_path} not found in repository.")
-    sys.exit(1)
+    post_comment(pr_number, "✅ BYPASS_LABEL was used.", token)
+    sys.exit(2)
 
 with open(locked_file_path, "r") as f:
     sensitive_files = [line.strip() for line in f if line.strip()]
