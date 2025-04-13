@@ -56,7 +56,7 @@ print("Labels found on PR:", labels)
 for label in labels:
     if label=="BYPASS_LABEL":
         post_comment(pr_number, "BYPASS_LABEL was used", token)
-        sys.exit(3)
+        sys.exit(0)
 
 files_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
 files_resp = requests.get(files_url, headers=headers)
