@@ -35,6 +35,8 @@ bypass_label = os.environ.get('BYPASS_LABEL')
 
 locked_file_path = "lockedFiles.txt"
 
+post_comment(pr_number, "Hello user", token)
+
 if not os.path.exists(locked_file_path):
     post_comment(pr_number, "✅ BYPASS_LABEL was used.", token)
     sys.exit(2)
