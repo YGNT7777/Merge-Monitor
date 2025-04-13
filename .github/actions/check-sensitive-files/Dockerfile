@@ -13,4 +13,4 @@ RUN mkdir -p /action
 RUN pip install --no-cache-dir requests
 
 # Run the Python script when the container is started
-ENTRYPOINT ["python", "check.py"]
+ENTRYPOINT ["./python", "./check.py"]
