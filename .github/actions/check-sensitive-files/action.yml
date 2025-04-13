@@ -19,5 +19,5 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.GITHUB_TOKEN }}
+    - ${{ inputs.TOKEN }}
     - ${{ inputs.PR_NUMBER }}
