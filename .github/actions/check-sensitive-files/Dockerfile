@@ -9,10 +9,6 @@ WORKDIR /action
 # Ensure the /action directory exists before copying
 RUN mkdir -p /action
 
-# Copy the necessary files into the Docker image
-COPY ./check.py /action/  # Absolute path for copying check.py
-COPY ./lockedFiles.txt /action/  # Absolute path for copying lockedFiles.txt
-
 # Install the necessary dependencies
 RUN pip install --no-cache-dir requests
 
