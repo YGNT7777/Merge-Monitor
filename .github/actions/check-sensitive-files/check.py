@@ -54,8 +54,8 @@ print("Label API response:", labels_resp.status_code, labels_resp.text)
 labels = [label['name'] for label in labels_resp.json()]
 print("Labels found on PR:", labels)
 for label in labels:
-    if label=="BYPASS_LEBEL":
-        post_comment(pr_number, "BYPASS_LEBEL was used", token)
+    if label=="BYPASS_LABEL":
+        post_comment(pr_number, "BYPASS_LABEL was used", token)
         sys.exit(3)
 
 files_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
