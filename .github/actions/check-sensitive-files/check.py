@@ -31,7 +31,7 @@ if not token:
     raise RuntimeError("GITHUB_TOKEN environment variable is not set")
 repo = os.environ['GITHUB_REPOSITORY']
 pr_number = os.environ['PR_NUMBER']
-bypass_label = os.environ.get('BYPASS_LABEL', 'allow-sensitive-change')
+bypass_label = os.environ.get('BYPASS_LABEL')
 
 locked_file_path = "lockedFiles.txt"
 
