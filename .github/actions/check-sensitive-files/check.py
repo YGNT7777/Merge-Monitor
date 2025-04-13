@@ -26,12 +26,12 @@ def close_pull_request(pr_number, token):
     if response.status_code >= 400:
         print(f"Failed to close PR: {response.status_code}, {response.text}")
 
-token = os.environ['GITHUB_TOKEN']
+token = sys.argv[1]
 if not token:
     raise RuntimeError("GITHUB_TOKEN environment variable is not set")
 repo = os.environ['GITHUB_REPOSITORY']
-pr_number = os.environ['PR_NUMBER']
-bypass_label = os.environ.get('BYPASS_LABEL')
+pr_number = sys.argv[2]
+bypass_label = sys.argv[3] if len(sys.argv) > 3 else 'BYPASS_LABEL'
 
 locked_file_path = "lockedFiles.txt"
 
