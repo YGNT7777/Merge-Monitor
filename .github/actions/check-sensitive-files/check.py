@@ -31,7 +31,6 @@ if not token:
     raise RuntimeError("GITHUB_TOKEN environment variable is not set")
 repo = os.environ['GITHUB_REPOSITORY']
 pr_number = sys.argv[2]
-bypass_label = sys.argv[3] if len(sys.argv) > 3 else 'BYPASS_LABEL'
 
 locked_file_path = "lockedFiles.txt"
 
@@ -54,10 +53,10 @@ labels_resp = requests.get(label_url, headers=headers)
 print("Label API response:", labels_resp.status_code, labels_resp.text)
 labels = [label['name'] for label in labels_resp.json()]
 print("Labels found on PR:", labels)
-print("Looking for bypass label:", bypass_label)
-if bypass_label in labels:
-    post_comment(pr_number, "BYPASS_LABEL was used", token)
-    sys.exit(3)
+for label in labels:
+    if label=="BYPASS_LEBEL":
+        post_comment(pr_number, "BYPASS_LEBEL was used", token)
+        sys.exit(3)
 
 files_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
 files_resp = requests.get(files_url, headers=headers)
