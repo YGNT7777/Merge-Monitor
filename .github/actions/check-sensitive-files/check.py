@@ -35,10 +35,9 @@ bypass_label = os.environ.get('BYPASS_LABEL')
 
 locked_file_path = "lockedFiles.txt"
 
-post_comment(pr_number, "Hello user", token)
 
 if not os.path.exists(locked_file_path):
-    post_comment(pr_number, "✅ BYPASS_LABEL was used.", token)
+    post_comment(pr_number, "lockedFile.txt is missing.", token)
     sys.exit(2)
 
 with open(locked_file_path, "r") as f:
@@ -54,8 +53,8 @@ label_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/labels"
 labels_resp = requests.get(label_url, headers=headers)
 labels = [label['name'] for label in labels_resp.json()]
 if bypass_label in labels:
-    print(f"✅ Label '{bypass_label}' found. Allowing changes.")
-    sys.exit(0)
+    post_comment(pr_number, "BYPASS_LABEL was used", token)
+    sys.exit(3)
 
 files_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
 files_resp = requests.get(files_url, headers=headers)
