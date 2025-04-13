@@ -18,6 +18,6 @@ jobs:
       - name: Run Check Sensitive Files Action
         uses: ./.github/actions/check-sensitive-files
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           BYPASS_LABEL: ${{ secrets.BYPASS_LABEL }}
