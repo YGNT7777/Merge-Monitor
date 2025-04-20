@@ -1,6 +1,13 @@
 # Merge-Monitor
 
-A github action bot that checks in pull request if files has been changed based of the lockedFiles.txt. If there has been changesthen it will automatically reject the pull request
+A GitHub Action that blocks PRs if they modify any files listed in lockedFiles.txt.
+
+# How to use:
+
+When you add the github action to your repo, on the lockedFiles.txt add the name of the files that you don't want outsiders to change
+
+If you want to allow a pull request to go through even if it modifies locked files, you can add a special label: BYPASS_LABEL
+By adding the label you skip the check
 
 # Demos:
 
@@ -14,9 +21,3 @@ You can also use label only if you want to make changes to files that isn't allo
 
 ### Using label
 ![withLabel](https://github.com/user-attachments/assets/562f8ff4-a6e5-4d3e-8cae-a7e0dde2d5df)
-
-
-# How to add it to your repositories
-
-- ### First you will need to create a label named BYPASS_LABEL so you can use the feature with label
-- ### Then just press the github action download
